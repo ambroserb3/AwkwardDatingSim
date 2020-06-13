@@ -26,10 +26,8 @@ function chooseCategory(json){
 	// console.log(r)
 	let obj_keys = Object.keys(json.Categories)
 	let r = getRandom(0, obj_keys.length)
-	console.log(r)
-	console.log(obj_keys[r])
+
 	let category = json.Categories[obj_keys[r]]
-	console.log(category)
 	// document.getElementById("cat").innerHTML = json.Categories[r]; 
 	return category
 }
