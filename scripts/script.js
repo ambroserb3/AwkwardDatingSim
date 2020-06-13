@@ -34,11 +34,12 @@ function answerpool(category){
 	let answers = []
 	for (let i = 0; i <=3; i++) {
 			// need to prevent dupes
-			console.log("hi")
-			let r = getRandom(0, category.Answers.length)
-			console.log(r)
-			console.log(category.Answers[r])
-			answers.push(category.Answers[r])
+			let new_answer = ""
+			do {
+				let r = getRandom(0, category.Answers.length)
+				new_answer = category.Answers[r]
+			while (answers.includes(new_answer))
+			answers.push(new_answer)
 		}
 	console.log(answers)
 	document.getElementById("answer1").innerHTML = answers[0]; 
