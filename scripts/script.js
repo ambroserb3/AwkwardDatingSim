@@ -22,10 +22,10 @@ function chooseQuestion(category){
 }
 
 function chooseCategory(json){
-	let r = getRandom(0, json.Categories.length)
 	// console.log(json.Categories.length)
 	// console.log(r)
 	let obj_keys = Object.keys(json.Categories)
+	let r = getRandom(0, obj_keys.length)
 	console.log(r)
 	console.log(obj_keys[r])
 	let category = json.Categories[obj_keys[r]]
