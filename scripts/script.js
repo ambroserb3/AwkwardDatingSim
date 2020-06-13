@@ -16,8 +16,8 @@ $.getJSON("dating.json", function(json) {
 function chooseQuestion(json){
 	//need to feed category as input as well
 	let r = getRandom(0, json.Categories.Emotional.Questions.length)
-	// console.log(r)
-	// console.log(json.Categories.Emotional.Questions[r])
+	console.log("random number for question:" + r)
+	console.log(json.Categories.Emotional.Questions[r])
 	document.getElementById("question").innerHTML = json.Categories.Emotional.Questions[r]; 
 }
 
