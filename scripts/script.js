@@ -10,7 +10,7 @@ $.getJSON("dating.json", function(json) {
 	// console.log(json.Categories.Emotional.Questions)
 	let cat = chooseCategory(json)
 	chooseQuestion(json);
-	answerpool(json)
+	answerpool(json, cat)
 });
 
 function chooseQuestion(json){
@@ -30,15 +30,15 @@ function chooseCategory(json){
 	return category
 }
 
-function answerpool(json){
+function answerpool(category){
 	let answers = []
 	for (let i = 0; i >=3; i++) {
 			// need to prevent dupes
 			console.log("hi")
-			let r = getRandom(0, json.Categories.Emotional.Answers.length)
+			let r = getRandom(0, category.Answers.length)
 			console.log(r)
-			console.log(json.Categories.Emotional.Answers[r])
-			answers.push(json.Categories.Emotional.Answers[r])
+			console.log(category.Answers[r])
+			answers.push(category.Answers[r])
 		}
 	console.log(answers)
 	document.getElementById("answer1").innerHTML = answers[0]; 
