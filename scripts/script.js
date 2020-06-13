@@ -9,16 +9,16 @@ $.getJSON("dating.json", function(json) {
 	// console.log(json); // this will show the info it in firebug console
 	// console.log(json.Categories.Emotional.Questions)
 	let cat = chooseCategory(json)
-	chooseQuestion(json);
-	answerpool(json, cat)
+	chooseQuestion(cat);
+	answerpool(cat)
 });
 
-function chooseQuestion(json){
+function chooseQuestion(category){
 	//need to feed category as input as well
-	let r = getRandom(0, json.Categories.Emotional.Questions.length)
+	let r = getRandom(0, category.Questions.length)
 	console.log("random number for question:" + r)
-	console.log(json.Categories.Emotional.Questions[r])
-	document.getElementById("question").innerHTML = json.Categories.Emotional.Questions[r]; 
+	console.log(category.Questions[r])
+	document.getElementById("question").innerHTML = category.Questions[r]; 
 }
 
 function chooseCategory(json){
