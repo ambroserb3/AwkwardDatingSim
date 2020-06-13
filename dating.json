@@ -1,14 +1,23 @@
 {
     "Categories": {
-        "Emotional": {
+        "People": {
             "Questions" : [
                 "Who would you least want to be stuck in an elevator with?",
                 "Who would you bring home to meet your parents?",
-                "Who is your ideal sexual partner?"
+                "Who is your ideal sexual partner?",
+                "What do you look like?",
+                "Who do you want to be when you grow up?",
+                "If you could meet anyone, past present or future, who would it be?",
+                "Who inspires you?",
+                "Who do you aspire to be?",
+                "Who’s your daddy?"
             ],
             "Answers": [
                 "My mother",
+                "Your mother",
                 "My father",
+                "My daddy",
+                "Your father",
                 "My grandmother",
                 "My grandfather",
                 "My brother",
@@ -23,21 +32,98 @@
                 "Nobody",
                 "The guy who never had any friends in middle school",
                 "Nazis",
-                "Mark Zuckerberg",
+                "Mark Zuckerberg ",
                 "Karl Marx",
                 "Adolf Hitler",
                 "No face",
                 "Lil Xan",
+                "Lil Pump",
                 "Hillary Clinton",
+                "Joe Biden",
                 "Peter Griffin",
-                "White people"
+                "White people",
+                "George H. W. Bush",
+                "Reimu Hakurei",
+                "Dua Lipa",
+                "Naruto",
+                "Batman",
+                "Beyonce",
+                "You",
+                "The Devil",
+                "Ben 10",
+                "Pikachu",
+                "Ash Ketchum"
             ]
         },
         "Situational": {
-            "Questions" : ""
+            "Questions" : [
+                "What is your ideal date?",
+                "How do you want to get married?",
+                "How are you planning to get home after this date?",
+                "How do you usually start the day?",
+                "How do you wind down at the end of the day?"
+            ],
+            "Answers": [
+                "I’m not sure, but it involves me getting punched.",
+                "Anything, as long as it involves lots of rope.",
+                "Can we get a horse for that?",
+                "As long as I don’t get hit by a taxi and then sued for jay-walking, I feel good about it!",
+                "The only correct way, completely drunk out of my mind",
+                "Just point me to the nearest seven eleven",
+                "Snorting pixie sticks",
+                "Drugs",
+                "Lots and lots of sex",
+                "My answer is totally dependent on the amount of people involved"
+            ]
         },
-        "People": {
-            "Questions" : ""
+        "Locations": {
+            "Questions" : [
+                "If you could go anywhere in the world for a date, where would it be?",
+                "Where was your first kiss?",
+                "Where were you born?",
+                "If you were to make a film, where would you want to shoot?",
+                "Where did you go to school?",
+                "Where is your favorite vacation destination?",
+                "Where would you take me on a second date?",
+                "Where do you really want to visit, but have never had the chance?",
+                "Where’s the most interesting place you’ve ever been lost?"
+            ],
+            "Answers": [
+                "The Holocaust Museum",
+                "Anywhere but here",
+                "In my grave",
+                "Inside your mom",
+                "I would tell you, but then I’d have to kill you",
+                "The no pants society",
+                "My swamp",
+                "My mother’s basement",
+                "Your mother’s basement",
+                "The deep web",
+                "My dreams",
+                "My sex dungeon ;)",
+                "New Jersey",
+                "Australia",
+                "On the internet",
+                "Your mom’s chest hair",
+                "Somewhere in Eastern Europe",
+                "North of the equator",
+                "South of the equator",
+                "Deere Isle, Maine",
+                "Boring, Oregon",
+                "The Eiffel Tower",
+                "This Museum",
+                "Venice Beach",
+                "Venice, Italy",
+                "The Grand Canyon",
+                "Gotham City",
+                "Your ass",
+                "Downtown",
+                "Here",
+                "Horneytown",
+                "Hell",
+                "Heaven",
+                "Where the moon hits your eye like a big pizza pie"
+            ]
         }
     }
 }

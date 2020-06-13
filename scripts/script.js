@@ -9,16 +9,16 @@ $.getJSON("dating.json", function(json) {
 	// console.log(json); // this will show the info it in firebug console
 	// console.log(json.Categories.Emotional.Questions)
 	let cat = chooseCategory(json)
-	chooseQuestion(json);
-	answerpool(json)
+	chooseQuestion(cat);
+	answerpool(cat)
 });
 
-function chooseQuestion(json){
+function chooseQuestion(category){
 	//need to feed category as input as well
-	let r = getRandom(0, json.Categories.Emotional.Questions.length)
+	let r = getRandom(0, category.Questions.length)
 	console.log("random number for question:" + r)
-	console.log(json.Categories.Emotional.Questions[r])
-	document.getElementById("question").innerHTML = json.Categories.Emotional.Questions[r]; 
+	console.log(category.Questions[r])
+	document.getElementById("question").innerHTML = category.Questions[r]; 
 }
 
 function chooseCategory(json){
@@ -30,15 +30,15 @@ function chooseCategory(json){
 	return category
 }
 
-function answerpool(json){
+function answerpool(category){
 	let answers = []
 	for (let i = 0; i <=3; i++) {
 			// need to prevent dupes
 			console.log("hi")
-			let r = getRandom(0, json.Categories.Emotional.Answers.length)
+			let r = getRandom(0, category.Answers.length)
 			console.log(r)
-			console.log(json.Categories.Emotional.Answers[r])
-			answers.push(json.Categories.Emotional.Answers[r])
+			console.log(category.Answers[r])
+			answers.push(category.Answers[r])
 		}
 	console.log(answers)
 	document.getElementById("answer1").innerHTML = answers[0]; 
