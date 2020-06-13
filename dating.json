@@ -1,0 +1,43 @@
+{
+    "Categories": {
+        "Emotional": {
+            "Questions" : [
+                "Who would you least want to be stuck in an elevator with?",
+                "Who would you bring home to meet your parents?",
+                "Who is your ideal sexual partner?"
+            ],
+            "Answers": [
+                "My mother",
+                "My father",
+                "My grandmother",
+                "My grandfather",
+                "My brother",
+                "My sister",
+                "My pet",
+                "Grandpa Steve",
+                "Kanye West",
+                "The pizza delivery guy",
+                "Cardi B",
+                "Spongebob",
+                "Sonic the Hedgehog",
+                "Nobody",
+                "The guy who never had any friends in middle school",
+                "Nazis",
+                "Mark Zuckerberg",
+                "Karl Marx",
+                "Adolf Hitler",
+                "No face",
+                "Lil Xan",
+                "Hillary Clinton",
+                "Peter Griffin",
+                "White people"
+            ]
+        },
+        "Situational": {
+            "Questions" : ""
+        },
+        "People": {
+            "Questions" : ""
+        }
+    }
+}
