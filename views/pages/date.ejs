@@ -17,27 +17,25 @@
 	<link href="../../stylesheets/fonts.css" rel="stylesheet" type="text/css" />
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 	<link href="../../stylesheets/bootstrap.min.css" rel="stylesheet" />
-	<link href="../../stylesheets/style.css" rel="stylesheet" type="text/css" />
-		
+	<link href="../../stylesheets/date.css" rel="stylesheet" type="text/css" />
+	<link href="https://fonts.googleapis.com/css2?family=Actor&family=Gochi+Hand&family=Quantico&display=swap" rel="stylesheet">
+
 	<script src="/socket.io/socket.io.js"></script>
 
 </head>
-<body style="background-color: #1D1F22">
+<body>
 
-<div class="jumbotron" id="top" style="height: 901px;">
-    <img src="Assets/Museum.png" height="75%"> </img> 
-	<div class="container">
-		<h1>Ruh-Roh it's date time</h1>
-		<p>&ldquo;"Pick the answer that answer that pleases you moist"&rdquo;<br /></p>
-        <br>
-        <div>
-            <p id="question"> </p>
-        </div>
-        <div class="row">
-            <button type="button" class="btn btn-dark" id="answer1">Answer 1</button>
-            <button type="button" class="btn btn-dark" id="answer2">Answer 2</button>
-            <button type="button" class="btn btn-dark" id="answer3">Answer 3</button>
-        </div>
+<div class="imageandtext">
+    <img src="Assets/Museum.png" height="75%" id="bg-img"> </img> 
+	<div id="title">Ruh-Roh it's date time...</div>
+	<div id="instruction"><p></p>&ldquo;Pick the answer that answer that pleases you moist&rdquo;</p></div>
+	<div>
+		<p id="question"> </p>
+	</div>
+	<div class="row" id="answers">
+		<button type="button" class="btn btn-dark" id="answer1">Answer 1</button><br>
+		<button type="button" class="btn btn-dark" id="answer2">Answer 2</button><br>
+		<button type="button" class="btn btn-dark" id="answer3">Answer 3</button><br>
 	</div>
 	<div class="overlay"></div>
 </div>

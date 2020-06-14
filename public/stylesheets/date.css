@@ -1,0 +1,92 @@
+#title{
+    font-size: 18px;
+}
+
+.imageandtext{
+    position: relative;
+    text-align: center;
+}
+
+.imageandtext img{
+    width: 100%;
+    height: auto;
+}
+
+.imageandtext #title{
+    position: absolute;
+    top: 4%;
+    left: 10%;
+    transform: translate(-50%, -50%);
+    padding: 5px 15px 5px 15px;
+    border-radius: 1px;
+
+    text-shadow: -1px 1px 0 #ffffff, 
+                          1px 1px 0 #ffffff, 
+                         1px -1px 0 #ffffff; 
+                        -1px -1px 0 #ffffff; 
+}
+
+.imageandtext #instruction{
+    position: absolute;
+    top: 8%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 1px;
+    padding: 2px 10px 2px 10px;
+    color: #5e5e5e;
+    font-size: 14px;
+    text-shadow: -1px 1px 0 #ffffff, 
+                          1px 1px 0 #ffffff, 
+                         1px -1px 0 #ffffff; 
+                        -1px -1px 0 #ffffff; 
+}
+
+.imageandtext #question{
+    font-family: 'Gochi Hand', cursive;
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 1px;
+    padding: 5px 15px 5px 15px;
+    font-size: 45px;
+    color: black;
+    font-weight: bolder;
+    text-shadow: -2px 2px 0 #0dfc59, 
+                          2px 2px 0 #0dfc59, 
+                         2px -2px 0 #0dfc59; 
+                        -2px -2px 0 #0dfc59; 
+}
+
+.imageandtext #answers{
+    position: absolute;
+    top: 57%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 5px 15px 5px 15px;
+    color: black;
+    font-family: 'Quantico', sans-serif;
+}
+
+.btn{
+    margin: 20px;
+}
+
+body{
+    font-family: 'Gochi Hand', cursive;
+}
+
+#answer1{
+    font-size: 24px;
+    background-color: pink;
+}
+
+#answer2{
+    font-size: 24px;
+    background-color: #ed2bff;
+}
+
+#answer3{
+    font-size: 24px;
+    background-color:#59f6ff;
+}
