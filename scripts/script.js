@@ -33,7 +33,6 @@ function chooseCategory(json){
 function answerpool(category){
 	let answers = []
 	for (let i = 0; i <=3; i++) {
-			// need to prevent dupes
 			let new_answer = ""
 			do {
 				let r = getRandom(0, category.Answers.length)
