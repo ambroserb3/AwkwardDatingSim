@@ -81,7 +81,8 @@ socket.on('questionsStart', function (game) {
 
 socket.on('questionRound', function (data) {
     document.getElementById('title').innerHTML = data.score
-    if (data.currRound % 2 == 1 || isPlayerOne)
+    let isMyTurn = (data.currRound % 2 == 1 && !isPlayerOne) || (data.currRound % 2 == 0 && isPlayerOne)
+    if (isMyTurn)
     {
         setMode('question', null, data.questions)
     }
@@ -92,7 +93,8 @@ socket.on('questionRound', function (data) {
 })
 
 socket.on('answerRound', function (data) {
-    if (data.currRound % 2 == 1 || isPlayerOne)
+    let isMyTurn = (data.currRound % 2 == 1 && !isPlayerOne) || (data.currRound % 2 == 0 && isPlayerOne)
+    if (isMyTurn)
     {
         setMode('guess', data.question, data.answers)
     }
