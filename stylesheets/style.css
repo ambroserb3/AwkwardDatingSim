@@ -1,7 +1,7 @@
 .bg {
-	background-image: url('../Assets/Museum.png');
+	background-image: url('../Assets/charselect.png');
 	height: 100%;
 	background-position: center;
 	background-repeat: no-repeat;
-	background-size: cover;
+	background-size: auto;
 }
