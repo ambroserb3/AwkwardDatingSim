@@ -86,8 +86,8 @@ io.sockets.on('connection', function(socket) {
     socket.on('adduser', function(username) {
         socket.username = username;
         socket.room = 'game';
-        players.push(socket);
-        console.log(players)
+        players.push(username);
+        console.log("THis is players /////////////////////////////////////////////" +JSON.stringify(players))
         if(players.length === 1){   
             player = new Player(socket.id, 'Player A', [], true);
             game.playerA = player;
@@ -95,6 +95,7 @@ io.sockets.on('connection', function(socket) {
             game.movingPlayerId = game.playerA.id;
             game.operators = [];
             info = 'Hi Player A, please make a move.'
+            console.log(info)
             io.sockets.connected[socket.id].emit('info', info);
             //emit game user only to our first player
             io.sockets.connected[socket.id].emit('game', game);
@@ -106,9 +107,9 @@ io.sockets.on('connection', function(socket) {
                 info = 'Hi Player B! Please make a move.';
                 game.movingPlayerId = game.playerB.id;
             }
-          
             io.sockets.connected[socket.id].emit('info', info);
             io.sockets.emit('game', game);
+            socket.emit("go to date", players, game)
         } else {
             info = "Sorry, there are already two guys playing...!"
             io.sockets.connected[socket.id].emit('info', info);
@@ -116,13 +117,12 @@ io.sockets.on('connection', function(socket) {
         };
         usernames[username] = username;
         console.log(usernames)
-        socket.emit("userlist", usernames)
+        socket.broadcast("userlist", usernames)
         socket.join('game');
         socket.emit('updatechat', 'SERVER', 'you have connected to game');
         socket.broadcast.to('game').emit('updatechat', 'SERVER', username + ' has connected to this room');
         socket.emit('updaterooms', rooms, 'game');
         console.log("A USER HAS been added")
-
     });
 
     socket.on('create', function(room) {

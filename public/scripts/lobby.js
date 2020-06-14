@@ -27,7 +27,7 @@ socket.on('updaterooms', function (rooms, current_room) {
 });
 
 socket.on("userlist", function(usernames) {
-    console.log(usernames[0])
+    console.log(usernames)
 
     document.getElementById('p1').innerHTML = JSON.stringify(usernames)
     // document.getElementById('p2').innerHTML = usernames[1]
