@@ -29,7 +29,7 @@ var rooms = ['Lobby'];
 
 io.on('connection', (socket) => {
   console.log('a user connected');
-  socket.emit("Key", API_KEY)
+  // socket.emit("Key", API_KEY)
 });
 
 io.sockets.on('connection', function(socket) {
