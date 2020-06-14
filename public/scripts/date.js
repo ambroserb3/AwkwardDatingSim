@@ -76,14 +76,10 @@ var players = {}
 socket.on('questionsStart', function (game) {
     players = game.players
     let playerOne = Object.keys(game.players).sort()[0]
-    isPlayerOne = username == playerOne
-    console.log(username)
-    console.log(playerOne)
-    console.log(isPlayerOne)
+    isPlayerOne = (username == playerOne)
 })
 
 socket.on('questionRound', function (data) {
-    console.log(data)
     if (data.currPlayer == 1 || isPlayerOne)
     {
         setMode('question', null, data.questions)
