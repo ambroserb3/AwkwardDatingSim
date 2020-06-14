@@ -117,7 +117,7 @@ io.sockets.on('connection', function(socket) {
         };
         usernames[username] = username;
         console.log(usernames)
-        socket.broadcast("userlist", usernames)
+        socket.emit("userlist", usernames)
         socket.join('game');
         socket.emit('updatechat', 'SERVER', 'you have connected to game');
         socket.broadcast.to('game').emit('updatechat', 'SERVER', username + ' has connected to this room');
