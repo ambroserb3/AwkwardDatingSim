@@ -5,7 +5,7 @@ $(document).ready(function()
 	//function to load for ready
 });
 
-$.getJSON("dating.json", function(json) {
+$.getJSON("Assets/dating.json", function(json) {
 	let cat = chooseCategory(json)
 	chooseQuestion(cat);
 	answerpool(cat)
