@@ -1,8 +1,8 @@
 {
-  "name": "Stephan Brown",
-  "description": "My personal Website",
-  "repository": "https://github.com/stephanrb3/StephanRBrown.com",
+  "name": "CU Game Dev",
+  "description": "Awkward Dates",
+  "repository": "https://github.com/stephanrb3/AwkwardDatingSim",
   "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/master/public/node.svg",
-  "keywords": ["Stephan", "Brown", "Machine Learning"],
+  "keywords": ["Awkward", "Dates", "Squidward"],
   "image": "heroku/nodejs"
 }

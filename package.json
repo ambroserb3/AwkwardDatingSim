@@ -1,7 +1,28 @@
 {
   "dependencies": {
+    "ejs": "^3.1.3",
     "express": "^4.17.1",
     "heroku": "^7.42.1",
+    "http": "^0.0.1-security",
+    "path": "^0.12.7",
     "socket.io": "^2.3.0"
-  }
+  },
+  "name": "awkwarddatingsim",
+  "description": "You can use the [editor on GitHub](https://github.com/stephanrb3/AwkwardDatingSim/edit/master/README.md) to maintain and preview the content for your website in Markdown files.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stephanrb3/AwkwardDatingSim.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stephanrb3/AwkwardDatingSim/issues"
+  },
+  "homepage": "https://github.com/stephanrb3/AwkwardDatingSim#readme"
 }
