@@ -86,8 +86,8 @@ io.sockets.on('connection', function(socket) {
     socket.on('adduser', function(username) {
         socket.username = username;
         socket.room = 'game';
-
         players.push(socket);
+        console.log(players)
         if(players.length === 1){   
             player = new Player(socket.id, 'Player A', [], true);
             game.playerA = player;

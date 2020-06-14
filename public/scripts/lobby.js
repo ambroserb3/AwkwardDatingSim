@@ -16,10 +16,6 @@ socket.on('updaterooms', function (rooms, current_room) {
     curRoom.innerHTML = current_room;
 
     console.log(socket);
-    socket.on("userlist", function(usernames) {
-        document.getElementById('p1').innerHTML = usernames[0]
-        document.getElementById('p2').innerHTML = usernames[1]
-    });
     $.each(rooms, function(key, value) {
         if(value == current_room){
             $('#rooms').append('<div>' + value + '</div>');
@@ -29,6 +25,14 @@ socket.on('updaterooms', function (rooms, current_room) {
         }
     });
 });
+
+socket.on("userlist", function(usernames) {
+    console.log(usernames[0])
+
+    document.getElementById('p1').innerHTML = usernames
+    // document.getElementById('p2').innerHTML = usernames[1]
+});
+
 
 function switchRoom(room){
     socket.emit('switchRoom', room);
