@@ -1,6 +1,7 @@
 console.log('running lobby')
-// var socket = io.connect('http://localhost:8000');
+
 var socket = io();
+
 socket.on('connect', function(){
     socket.emit('adduser', prompt("What's your name: "));
 });
@@ -9,9 +10,12 @@ socket.on('updatechat', function (username, data) {
     $('#conversation').append('<b>'+ username + ':</b> ' + data + '<br>');
 });
 
-
 socket.on('updaterooms', function (rooms, current_room) {
     $('#rooms').empty();
+    let curRoom = document.getElementById('myroom')
+    curRoom.innerHTML = current_room;
+
+    console.log(socket);
     $.each(rooms, function(key, value) {
         if(value == current_room){
             $('#rooms').append('<div>' + value + '</div>');
@@ -22,23 +26,31 @@ socket.on('updaterooms', function (rooms, current_room) {
     });
 });
 
+socket.on("userlist", function(usernames) {
+    console.log(usernames[0])
+
+    document.getElementById('p1').innerHTML = JSON.stringify(usernames)
+    // document.getElementById('p2').innerHTML = usernames[1]
+});
+
+
 function switchRoom(room){
     socket.emit('switchRoom', room);
 }
 
 $(function(){
-    // $('#datasend').click( function() {
-    //     var message = $('#data').val();
-    //     $('#data').val('');
-    //     socket.emit('sendchat', message);
-    // });
+    $('#datasend').click( function() {
+        var message = $('#data').val();
+        $('#data').val('');
+        socket.emit('sendchat', message);
+    });
 
-    // $('#data').keypress(function(e) {
-    //     if(e.which == 13) {
-    //         $(this).blur();
-    //         $('#datasend').focus().click();
-    //     }
-    // });
+    $('#data').keypress(function(e) {
+        if(e.which == 13) {
+            $(this).blur();
+            $('#datasend').focus().click();
+        }
+    });
 
     $('#roombutton').click(function(){
         var name = $('#roomname').val();
@@ -46,5 +58,11 @@ $(function(){
         console.log($('#roomname').val())
         $('#roomname').val('');
         socket.emit('create', name)
+    });
+
+    $('#begindate').click(function(){
+        console.log("starting date")
+        // Join game
+        window.location.href="/char"
     });
 });
