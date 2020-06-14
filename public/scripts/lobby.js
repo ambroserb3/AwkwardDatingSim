@@ -1,6 +1,6 @@
 console.log('running lobby')
-var socket = io.connect('http://localhost:8000');
-
+// var socket = io.connect('http://localhost:8000');
+var socket = io();
 socket.on('connect', function(){
     socket.emit('adduser', prompt("What's your name: "));
 });
