@@ -28,7 +28,6 @@ var usernames = {};
 var rooms = ['Lobby'];
 
 io.sockets.on('connection', function(socket) {
-    console.log("A USER HAS CONNECTED")
     socket.on('adduser', function(username) {
         socket.username = username;
         socket.room = 'Lobby';
@@ -37,6 +36,8 @@ io.sockets.on('connection', function(socket) {
         socket.emit('updatechat', 'SERVER', 'you have connected to Lobby');
         socket.broadcast.to('Lobby').emit('updatechat', 'SERVER', username + ' has connected to this room');
         socket.emit('updaterooms', rooms, 'Lobby');
+        console.log("A USER HAS been added")
+
     });
 
     socket.on('create', function(room) {

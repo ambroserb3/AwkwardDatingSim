@@ -18,20 +18,6 @@ socket.on('updaterooms', function (rooms, current_room) {
     curRoom.innerHTML = current_room;
 
     console.log(socket);
-    // var room = io.sockets.adapter.rooms['my_room'];
-
-    // console.log(room)
-    // room.length;
-
-    //counts all clients connected
-    // var srvSockets = io.sockets.sockets;
-    // Object.keys(srvSockets).length;
-
-    // Count all clients connected to namespace '/lobby':
-    // var nspSockets = io.of('/lobby').sockets;
-    // Object.keys(nspSockets).length
-
-
     let p1 = document.getElementById('p1')
 
     $.each(rooms, function(key, value) {
@@ -49,18 +35,18 @@ function switchRoom(room){
 }
 
 $(function(){
-    // $('#datasend').click( function() {
-    //     var message = $('#data').val();
-    //     $('#data').val('');
-    //     socket.emit('sendchat', message);
-    // });
+    $('#datasend').click( function() {
+        var message = $('#data').val();
+        $('#data').val('');
+        socket.emit('sendchat', message);
+    });
 
-    // $('#data').keypress(function(e) {
-    //     if(e.which == 13) {
-    //         $(this).blur();
-    //         $('#datasend').focus().click();
-    //     }
-    // });
+    $('#data').keypress(function(e) {
+        if(e.which == 13) {
+            $(this).blur();
+            $('#datasend').focus().click();
+        }
+    });
 
     $('#roombutton').click(function(){
         var name = $('#roomname').val();
