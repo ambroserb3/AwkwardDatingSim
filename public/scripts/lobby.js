@@ -33,8 +33,12 @@ socket.on('updaterooms', function (rooms, current_room) {
 
 socket.on("userlist", function(usernames) {
     console.log(usernames)
+    let toDisplay = ""
+    for (const name of usernames) {
+        toDisplay = toDisplay + name + "<br />"
+    }
 
-    document.getElementById('p1').innerHTML = JSON.stringify(usernames)
+    document.getElementById('p1').innerHTML = toDisplay
     // document.getElementById('p2').innerHTML = usernames[1]
 });
 

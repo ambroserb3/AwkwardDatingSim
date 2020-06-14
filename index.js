@@ -109,6 +109,7 @@ function leaveRoom(socket) {
     socket.broadcast.to(oldroom).emit('updatechat', 'SERVER', socket.username + ' has left this room')
     socket.room = null
     rooms[oldroom].removePlayer(socket.player.username)
+    io.sockets.in(oldroom).emit('userlist', rooms[oldroom].usernames)
   }
 }
 
@@ -119,7 +120,7 @@ function joinRoom(socket, roomName) {
   socket.emit('updaterooms', Object.keys(rooms), roomName)
   socket.room = roomName
   rooms[roomName].addPlayer(socket.player)
-  socket.broadcast.to(roomName).emit('userlist', rooms[roomName].usernames)
+  io.sockets.in(roomName).emit('userlist', rooms[roomName].usernames)
 }
 
 io.sockets.on('connection', function(socket) {
