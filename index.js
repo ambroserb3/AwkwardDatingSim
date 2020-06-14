@@ -47,6 +47,8 @@ class Game {
     this.oneSelected = false
     this.started = false
     this.round = -1
+    this.currCats = {}
+    this.currQs = ['','','']
   }
 
   addPlayer(player) {
@@ -80,17 +82,22 @@ class Game {
   markLoaded(username) {
     if (this.oneSelected) {
       io.sockets.in(this.name).emit('questionsStart', this)
-      this.round = 0
+      this.sendQuestionRound()
     }
     else {
       this.oneSelected = true
     }
   }
 
-  sendRound() {
-    this.oneSelected = false
-    data = {}
-    io.sockets.in(this.name).emit('setRound', data)
+  sendQuestionRound() {
+    this.round++
+    for (let i = 0; i < 3; i++)
+    {
+      this.currCats[i] = chooseCategory()
+      this.currQs[i] = chooseQuestion(this.currCats[i])
+    }
+    let data = {'currPlayer': this.round % 2, 'questions': this.currQs}
+    io.sockets.in(this.name).emit('questionRound', data)
   }
 }
 
@@ -221,7 +228,7 @@ function chooseQuestion(category){
   return category.Questions[r]
 }
 
-function chooseCategory(json){
+function chooseCategory(){
   // console.log(json.Categories.length)
   // console.log(r)
   let obj_keys = Object.keys(json.Categories)

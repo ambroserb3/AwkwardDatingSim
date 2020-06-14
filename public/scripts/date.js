@@ -26,7 +26,7 @@ function setMode(newMode, question, choices)
     {
         instruction.innerHTML = "<p>GUESS THE ANSWER</p>"
     }
-    if (mode != "question")
+    if (mode != "question" && mode != "waiting")
     {
         questionHTML.innerHTML = '<p>"' + question + '"</p>'
     }
@@ -77,10 +77,21 @@ socket.on('questionsStart', function (game) {
     players = game.players
     let playerOne = Object.keys(game.players).sort()[0]
     isPlayerOne = username == playerOne
+    console.log(username)
+    console.log(playerOne)
+    console.log(isPlayerOne)
 })
 
-socket.on('setRound', function (data) {
-
+socket.on('questionRound', function (data) {
+    console.log(data)
+    if (data.currPlayer == 1 || isPlayerOne)
+    {
+        setMode('question', null, data.questions)
+    }
+    else
+    {
+        setMode('waiting', null, null)
+    }
 })
 
 function toggleAudio() {
