@@ -25,3 +25,8 @@
 body{
 	font-family: 'Sorts Mill Goudy', serif;
 }
+
+.character{
+	width: 70%;
+	margin: 20% 60px 0px 40px;
+}
