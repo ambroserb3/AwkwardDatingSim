@@ -576,6 +576,25 @@
                 "Zoom",
                 "WikiFeet"
             ]
+        },
+        "CurrentSituation": {
+            "Questions" : [
+                "How are you liking this date?",
+                "Are you ready to move to the next part of the date now?",
+                "We’re in a museum, could you please tone it down?"
+            ],
+            "Answers": [
+                "I am going to punch a hole through the wall",
+                "Marry me",
+                "I know you said you were going to take me out, but at this point, I wish you had meant with a gun.",
+                "Hmmm, how about no to anything happening here",
+                "I’m going to say what needs to be said: I am a gift to this situation and everybody else should just appreciate that.",
+                "Well, we are in this space. That is for sure.",
+                "I'm not love this",
+                "I want to go home now",
+                "What really matters is that I just love you soooo much",
+                "Uhhh, yes?"
+            ]
         }
     }
 }
