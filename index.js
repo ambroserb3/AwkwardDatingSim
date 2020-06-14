@@ -106,8 +106,8 @@ class Game {
 
   sendAnswerRound(choice) {
     this.inQRound = false
-    let answers = answerpool(this.currCats[choice])
-    let data = {'currRound': this.round, 'question': this.currQs[choice], 'answers': answers}
+    let answers = answerpool(this.currCats[choice-1])
+    let data = {'currRound': this.round, 'question': this.currQs[choice-1], 'answers': answers}
     io.sockets.in(this.name).emit('answerRound', data)
   }
 
@@ -126,8 +126,9 @@ class Game {
       {
         if (this.choiceIn == choice)
         {
-          this.score++;
+          this.score++
         }
+        this.choiceIn = 0
         this.sendQuestionRound()
       }
     }
