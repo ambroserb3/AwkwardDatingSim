@@ -1,8 +1,44 @@
 #roomslist {
-    float: left;
-    width: 100px;
     border-right:1px solid black;
-    height: 300px;
-    padding: 10px;
-    overflow: scroll-y;
+}
+
+#chatcontainer{
+    padding: 20px;
+    border-radius: 2px;
+    background-color: #fff0f5;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+.container{
+    padding-top: 30px;
+}
+
+.form-control{
+    display: inline !important; 
+}
+#data{
+    width: 185px;
+}
+
+.roomstart{
+    position: absolute;
+    text-align: center;
+    top: 20%;
+    left: 45%;
+    background-color:#fff0f5;
+    border-radius: 2px;
+    padding: 20px;
+}
+
+#begindate{
+    font-size: 30px;
+    background-color: #ffd4e2;
+}
+
+.btn{
+    background-color: #ffd4e2;
+}
+
+.body{
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
