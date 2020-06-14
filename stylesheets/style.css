@@ -5,3 +5,7 @@
 	background-repeat: no-repeat;
 	background-size: auto;
 }
+.invisible_button {
+	background-color: transparent;
+	border-color: transparent;
+}
