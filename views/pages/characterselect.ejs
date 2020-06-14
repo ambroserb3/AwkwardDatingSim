@@ -17,39 +17,42 @@
 	<link href="../../stylesheets/fonts.css" rel="stylesheet" type="text/css" />
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 	<link href="../../stylesheets/bootstrap.min.css" rel="stylesheet" />
-	<link href="../../stylesheets/style.css" rel="stylesheet" type="text/css" />
-	
+	<link href="../../stylesheets/characterselect.css" rel="stylesheet" type="text/css" />
+	<link href="https://fonts.googleapis.com/css2?family=Bellota:wght@300&family=Sorts+Mill+Goudy&family=Sriracha&display=swap" rel="stylesheet">
+
 	<script src="/socket.io/socket.io.js"></script>
 
 </head>
 <body>
 
 <div>
-	<div class="container-fluid">
+	<div class="container-fluid" id="outercontainer">
 		<h1>Choose your avatar</h1>
-		<p>&ldquo;"Pick someone who really represents your essence"&rdquo;<br /></p>
+		<p>&ldquo;Pick someone who really represents your essence&rdquo;<br /></p>
         <br>
-
-        <div class="col-md-3">
-        	<img src="Assets/charselect.png" style="position:absolute;" class="img-responsive"></img>
-	        <div class="row" style="position:absolute;">
-	            <div class="col-md-4">
-	            	<button type="button" class="invisible_button" onclick="window.location.href='/date'">
-	            		<img src="Assets/avatars/dapper.png" class="img-responsive"></img>
-	            	</button>
-	            </div>
-	            
-	            <div class="col-md-4">
-	            	<button type="button" class="invisible_button" onclick="window.location.href='/date'">
-	                	<img src="Assets/avatars/apron.png" class="img-responsive"></img>
-	            	</button>
-	            </div>
-	            
-	            <div class="col-md-4">
-	            	<button type="button" class="invisible_button" onclick="window.location.href='/date'">
-	                	<img src="Assets/avatars/squareface.png" class="img-responsive"></img>
-	            	</button>
-	            </div>
+		<div class="row">
+			<div class="col-md-12">
+				<img src="Assets/charselect.png" id="charselectimg" class="img-responsive"></img>
+				<div class="row" style="position:absolute;">
+					<div class="col-xs-4">
+						<button type="button" class="invisible_button" onclick="window.location.href='/date'">
+							<img src="Assets/avatars/dapper.png" class="img-responsive"></img>
+						</button>
+					</div>
+					
+					<div class="col-xs-4">
+						<button type="button" class="invisible_button" onclick="window.location.href='/date'">
+							<img src="Assets/avatars/apron.png" class="img-responsive"></img>
+						</button>
+					</div>
+					
+					<div class="col-xs-4">
+						<button type="button" class="invisible_button" onclick="window.location.href='/date'">
+							<img src="Assets/avatars/squareface.png" class="img-responsive"></img>
+						</button>
+					</div>
+				</div>
+		</div>
 	            <!--<div class="col-md-4">
 	                    <h3>About me</h3>
 	                    <p>I'm option 4</p>
