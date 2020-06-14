@@ -80,7 +80,8 @@ socket.on('questionsStart', function (game) {
 })
 
 socket.on('questionRound', function (data) {
-    if (data.currPlayer == 1 || isPlayerOne)
+    document.getElementById('title').innerHTML = data.score
+    if (data.currRound % 2 == 1 || isPlayerOne)
     {
         setMode('question', null, data.questions)
     }
@@ -90,7 +91,27 @@ socket.on('questionRound', function (data) {
     }
 })
 
+socket.on('answerRound', function (data) {
+    if (data.currRound % 2 == 1 || isPlayerOne)
+    {
+        setMode('guess', data.question, data.answers)
+    }
+    else
+    {
+        setMode('answer', data.question, data.answers)
+    }
+})
+
 function toggleAudio() {
     var sound = document.getElementById("sound");
     return sound.paused ? sound.play() : sound.pause();
 }
+
+$(function() {
+    $('.selectOpt').click( function(event) {
+        let choice = $(this).data('opt')
+
+        socket.emit('selectOpt', choice)
+        setMode('waiting', null, null)
+    })
+})
