@@ -30,7 +30,7 @@
 <body>
 <div class="imagebutton">
 	<img src="Assets/title.png" height="75%" id="titleimage"> </img> 
-	<button type="button" class="btn btn-dark" id="play"><a href="/lobby"></button></a>
+	<button type="button" class="btn btn-dark" id="play" onclick="window.location.href='/lobby'"></button>
 </div>
 <div class="jumbotron" id="top" style="height: 901px;">
 	<div class="container">
@@ -42,15 +42,6 @@
 </div>
 
 <!-- onclick="window.location.href='/rooms.ejs'" -->
-<script>
-	const socket = io();
-	document.getElementById("play").addEventListener("click", playbutton);
-	function playbutton() {
-		console.log("clicked")
-		// Join game
-		socket.emit('play');
-	}
-</script>
 
 
 <!-- <h6 style="text-align: center; color: white;">Copyright&copy;CU GameDev 2020<h6></h6> -->
