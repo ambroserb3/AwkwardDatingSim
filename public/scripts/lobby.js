@@ -2,6 +2,8 @@ console.log('running lobby')
 
 var socket = io();
 
+var my_room = null
+
 socket.on('connect', function(){
     socket.emit('adduser', prompt("What's your name: "));
 });
@@ -13,11 +15,14 @@ socket.on('updatechat', function (username, data) {
 socket.on('updaterooms', function (rooms, current_room) {
     $('#rooms').empty();
     let curRoom = document.getElementById('myroom')
-    curRoom.innerHTML = current_room;
+    if (current_room != null)
+    {
+        curRoom.innerHTML = current_room;
+        my_room = current_room
+    }
 
-    console.log(socket);
     $.each(rooms, function(key, value) {
-        if(value == current_room){
+        if(value == my_room){
             $('#rooms').append('<div>' + value + '</div>');
         }
         else {
@@ -28,11 +33,18 @@ socket.on('updaterooms', function (rooms, current_room) {
 
 socket.on("userlist", function(usernames) {
     console.log(usernames)
+    let toDisplay = ""
+    for (const name of usernames) {
+        toDisplay = toDisplay + name + "<br />"
+    }
 
-    document.getElementById('p1').innerHTML = JSON.stringify(usernames)
+    document.getElementById('p1').innerHTML = toDisplay
     // document.getElementById('p2').innerHTML = usernames[1]
 });
 
+socket.on("dateStart", function(game) {
+    window.location.href="/char"
+})
 
 function switchRoom(room){
     socket.emit('switchRoom', room);
@@ -61,8 +73,7 @@ $(function(){
     });
 
     $('#begindate').click(function(){
-        console.log("starting date")
-        // Join game
-        window.location.href="/char"
+        console.log('this happened')
+        socket.emit('startDate')
     });
 });
