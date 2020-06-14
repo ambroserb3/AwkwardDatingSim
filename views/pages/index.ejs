@@ -17,7 +17,8 @@
 	<link href="../../stylesheets/fonts.css" />
 	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 	<link href="../../stylesheets/bootstrap.min.css" />
-	<link href="../../stylesheets/style.css" type="text/css" />
+	<link href="../../stylesheets/style.css" rel="stylesheet" type="text/css" />
+	<link href="../../stylesheets/index.css" rel="stylesheet" type="text/css" />
 	<script src="/socket.io/socket.io.js"></script>
 
 	<!-- Core JavaScript, tensorflow, jquery, and bootstrap -->
@@ -26,14 +27,16 @@
 	<script type="text/html" src="../../scripts/play.js"></script>
 	<script type="text/html" src="../../scripts/bootstrap.min.js"></script>
 </head>
-<body style="background-color: #1D1F22">
+<body>
+<div class="imagebutton">
+	<img src="Assets/title.png" height="75%" id="titleimage"> </img> 
+	<button type="button" class="btn btn-dark" id="play"><a href="/lobby"></button></a>
+</div>
 <div class="jumbotron" id="top" style="height: 901px;">
-    <img src="Assets/title.png" height="75%"> </img> 
 	<div class="container">
 		<h1>A Date at the Museum</h1>
-		<p>&ldquo;"A raving good time!"&rdquo;<br /></p>
+		<p>&ldquo;A raving good time!&rdquo;<br /></p>
         <br>
-		<button type="button" class="btn btn-dark" id="play"><a href="/lobby">Play</button></a>
 	</div>
 	<div class="overlay"></div>
 </div>
