@@ -5,6 +5,7 @@ const socketio = require('socket.io');
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server)
+const fs = require('fs')
 
 const PORT = process.env.PORT || 5000
 //////////////////////////////////////////////////////////////////////
@@ -23,6 +24,8 @@ app.get('/char', function(req, res) {
 app.get('/date', function(req, res) {
   res.render('pages/date', { });
 });
+
+var json = JSON.parse(fs.readFileSync('public/Assets/dating.json', 'utf8'))
 
 var usernames = {};
 var rooms = {};
@@ -85,7 +88,9 @@ class Game {
   }
 
   sendRound() {
-
+    this.oneSelected = false
+    data = {}
+    io.sockets.in(this.name).emit('setRound', data)
   }
 }
 
@@ -209,6 +214,40 @@ io.sockets.on('connection', function(socket) {
         //io.close();
     });
  });
+
+function chooseQuestion(category){
+  //need to feed category as input as well
+  let r = getRandom(0, category.Questions.length)
+  return category.Questions[r]
+}
+
+function chooseCategory(json){
+  // console.log(json.Categories.length)
+  // console.log(r)
+  let obj_keys = Object.keys(json.Categories)
+  let r = getRandom(0, obj_keys.length)
+
+  let category = json.Categories[obj_keys[r]]
+  // document.getElementById("cat").innerHTML = json.Categories[r]; 
+  return category
+}
+
+function answerpool(category){
+  let answers = []
+  for (let i = 0; i <=3; i++) {
+      let new_answer = ""
+      do {
+        let r = getRandom(0, category.Answers.length)
+        new_answer = category.Answers[r]
+      } while (answers.includes(new_answer))
+      answers.push(new_answer)
+    }
+  return answers
+}
+
+function getRandom(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+}
 
 
 server.listen(PORT, () => console.log("Server started!", `Listening on ${ PORT }`));
