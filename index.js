@@ -27,11 +27,6 @@ app.get('/date', function(req, res) {
 var usernames = {};
 var rooms = ['Lobby'];
 
-io.on('connection', (socket) => {
-  console.log('a user connected');
-  // socket.emit("Key", API_KEY)
-});
-
 io.sockets.on('connection', function(socket) {
     console.log("A USER HAS CONNECTED")
     socket.on('adduser', function(username) {
