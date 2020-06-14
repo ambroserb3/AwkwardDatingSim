@@ -1,0 +1,90 @@
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta http-equiv="content-script-type" content="text/javascript">
+	<meta http-equiv="content-style-type" content="text/css">
+	<meta http-equiv="content-language" content="nl">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="author" content="CU GameDev">
+	<meta name="description" content="Museum Lobby">
+	<meta name="keywords" content="Dating, Game, Awkward, Squidward">
+	<meta name="robots" content="index, follow">
+	<meta name="revisit-after" content="10 days">
+	<title>Awkward Dating Sim</title>
+    
+	<!-- Fonts, Fontawesome Bootstrap, Core CSS, -->
+	<link href="../../stylesheets/fonts.css" rel="stylesheet" type="text/css" />
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	<link href="../../stylesheets/bootstrap.min.css" rel="stylesheet" />
+	<link href="../../stylesheets/style.css" rel="stylesheet" type="text/css" />
+	
+	<script src="/socket.io/socket.io.js"></script>
+
+    <script>
+        var socket = io.connect('http://localhost:8000');
+        
+        socket.on('connect', function(){
+            socket.emit('adduser', prompt("What's your name: "));
+        });
+        
+        socket.on('updatechat', function (username, data) {
+            $('#conversation').append('<b>'+ username + ':</b> ' + data + '<br>');
+        });
+        
+        
+        socket.on('updaterooms', function (rooms, current_room) {
+            $('#rooms').empty();
+            $.each(rooms, function(key, value) {
+                if(value == current_room){
+                    $('#rooms').append('<div>' + value + '</div>');
+                }
+                else {
+                    $('#rooms').append('<div><a href="#" onclick="switchRoom(\''+value+'\')">' + value + '</a></div>');
+                }
+            });
+        });
+        
+        function switchRoom(room){
+            socket.emit('switchRoom', room);
+        }
+        
+        $(function(){
+            $('#datasend').click( function() {
+                var message = $('#data').val();
+                $('#data').val('');
+                socket.emit('sendchat', message);
+            });
+        
+            $('#data').keypress(function(e) {
+                if(e.which == 13) {
+                    $(this).blur();
+                    $('#datasend').focus().click();
+                }
+            });
+        
+            $('#roombutton').click(function(){
+                var name = $('#roomname').val();
+                $('#roomname').val('');
+                socket.emit('create', name)
+            });
+        });
+    </script>
+
+</head>
+<body>
+        <div style="float:left;width:100px;border-right:1px solid black;height:300px;padding:10px;overflow:scroll-y;">
+            <b>ROOMS</b>
+            <div id="rooms"></div>
+        </div>
+    
+        <div style="float:left;width:300px;height:250px;overflow:scroll-y;padding:10px;">
+            <div id="conversation"></div>
+            <input id="data" style="width:200px;" />
+            <input type="button" id="datasend" value="send" />
+        </div>
+    
+       <div style="float:left;width:300px;height:250px;overflow:scroll-y;padding:10px;">
+           <div id="room creation"></div>
+           <input id="roomname" style="width:200px;" />
+            <input type="button" id="roombutton" value="create room" />
+       </div>
+</body>
