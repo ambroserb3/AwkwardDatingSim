@@ -2,8 +2,6 @@ console.log('running lobby')
 
 var socket = io();
 
-let p2 = document.getElementById('p2')
-
 socket.on('connect', function(){
     socket.emit('adduser', prompt("What's your name: "));
 });
@@ -18,8 +16,10 @@ socket.on('updaterooms', function (rooms, current_room) {
     curRoom.innerHTML = current_room;
 
     console.log(socket);
-    let p1 = document.getElementById('p1')
-
+    socket.on("userlist", function(usernames) {
+        document.getElementById('p1').innerHTML = usernames[0]
+        document.getElementById('p2').innerHTML = usernames[1]
+    });
     $.each(rooms, function(key, value) {
         if(value == current_room){
             $('#rooms').append('<div>' + value + '</div>');
