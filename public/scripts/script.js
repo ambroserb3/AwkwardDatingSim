@@ -16,7 +16,7 @@ function chooseQuestion(category){
 	let r = getRandom(0, category.Questions.length)
 	console.log("random number for question:" + r)
 	console.log(category.Questions[r])
-	document.getElementById("question").innerHTML = category.Questions[r]; 
+	document.getElementById("question").innerHTML = '"' + category.Questions[r] + '"'; 
 }
 
 function chooseCategory(json){
