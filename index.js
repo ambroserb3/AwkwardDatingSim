@@ -27,12 +27,8 @@ app.get('/date', function(req, res) {
 var usernames = {};
 var rooms = ['Lobby'];
 
-io.sockets.on('play', function(play) {
-  console.log("a user pressed play")
-  app.get('/', (req, res) => res.render('pages/rooms'))
-});
-
 io.sockets.on('connection', function(socket) {
+    console.log("A USER HAS CONNECTED")
     socket.on('adduser', function(username) {
         socket.username = username;
         socket.room = 'Lobby';

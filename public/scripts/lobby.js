@@ -42,6 +42,8 @@ $(function(){
 
     $('#roombutton').click(function(){
         var name = $('#roomname').val();
+        console.log("fuck")
+        console.log($('#roomname').val())
         $('#roomname').val('');
         socket.emit('create', name)
     });
