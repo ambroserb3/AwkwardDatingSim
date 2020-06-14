@@ -5,6 +5,7 @@ const socketio = require('socket.io');
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server)
+const fs = require('fs')
 
 const PORT = process.env.PORT || 5000
 //////////////////////////////////////////////////////////////////////
@@ -24,13 +25,18 @@ app.get('/date', function(req, res) {
   res.render('pages/date', { });
 });
 
+var json = JSON.parse(fs.readFileSync('public/Assets/dating.json', 'utf8'))
+
 var usernames = {};
 var rooms = {};
+var players = {};
 
 class Player {
   constructor(id, username) {
     this.id = id
     this.username = username
+    this.character = 0
+    this.gameName = null
   }
 }
 
@@ -38,11 +44,14 @@ class Game {
   constructor(name) {
     this.name = name
     this.players = {}
+    this.oneSelected = false
+    this.started = false
+    this.round = -1
   }
 
   addPlayer(player) {
     this.players[player.username] = player
-    console.log(this.players)
+    player.gameName = this.name
   }
 
   removePlayer(username) {
@@ -54,6 +63,7 @@ class Game {
   }
 
   start() {
+    this.started = true
     for (const player in this.players) {
       this.emitToPlayers('dateStart', this)
     }
@@ -61,6 +71,26 @@ class Game {
 
   emitToPlayers(signal, info) {
     io.sockets.in(this.name).emit(signal, info)
+  }
+
+  selectChar(username, index) {
+    this.players[username].character = index
+  }
+
+  markLoaded(username) {
+    if (this.oneSelected) {
+      io.sockets.in(this.name).emit('questionsStart', this)
+      this.round = 0
+    }
+    else {
+      this.oneSelected = true
+    }
+  }
+
+  sendRound() {
+    this.oneSelected = false
+    data = {}
+    io.sockets.in(this.name).emit('setRound', data)
   }
 }
 
@@ -108,7 +138,10 @@ function leaveRoom(socket) {
     socket.leave(oldroom)
     socket.broadcast.to(oldroom).emit('updatechat', 'SERVER', socket.username + ' has left this room')
     socket.room = null
-    rooms[oldroom].removePlayer(socket.player.username)
+    if (!rooms[oldroom].started)
+    {
+      rooms[oldroom].removePlayer(socket.player.username) 
+    }
     io.sockets.in(oldroom).emit('userlist', rooms[oldroom].usernames)
   }
 }
@@ -116,7 +149,7 @@ function leaveRoom(socket) {
 function joinRoom(socket, roomName) {
   socket.join(roomName)
   socket.emit('updatechat', 'SERVER', 'you have connected to ' + roomName)
-  socket.broadcast.to(roomName).emit('updatechat', 'SERVER', socket.username + ' has joined this room')
+  socket.broadcast.to(roomName).emit('updatechat', 'SERVER', socket.player.username + ' has joined this room')
   socket.emit('updaterooms', Object.keys(rooms), roomName)
   socket.room = roomName
   rooms[roomName].addPlayer(socket.player)
@@ -125,8 +158,8 @@ function joinRoom(socket, roomName) {
 
 io.sockets.on('connection', function(socket) {
     socket.on('adduser', function(username) {
-        socket.username = username;
         socket.player = new Player(socket.id, username)
+        players[username] = socket.player
         socket.room = null
         socket.emit('updaterooms', Object.keys(rooms), null)
         console.log("A USER HAS been added")
@@ -140,7 +173,7 @@ io.sockets.on('connection', function(socket) {
     });
 
     socket.on('sendchat', function(data) {
-        io.sockets["in"](socket.room).emit('updatechat', socket.username, data);
+        io.sockets["in"](socket.room).emit('updatechat', socket.player.username, data);
     });
 
     socket.on('switchRoom', function(newroom) {
@@ -158,29 +191,21 @@ io.sockets.on('connection', function(socket) {
       }
     });
 
-    socket.on('selectChar', function(index) {
-      console.log('WE GOT THOSE CHARACTERS!')
-      console.log(index)
+    socket.on('selectChar', function(data) {
+      let player = players[data.username]
+      let game = rooms[player.gameName]
+      game.selectChar(player.username, data.choice)
+      socket.join(game.name)
     })
 
-    socket.on('next-move', function(data){ 
-        game.operators.push(parseInt(data));
-        if(game.movingPlayerId === game.playerA.id) {
-            executeNextMove(game.playerA, game.playerB);
-        } else {
-            executeNextMove(game.playerB, game.playerA);
-        }
-        if (newNumber === 1) {
-            //because movingPlayerId was just switched
-            if (game.playerB.id.match(game.movingPlayerId)){
-                info = "The winner is Player A";
-            } else {
-                info = "The winner is Player B";
-            }
-            io.sockets.emit('info', info);
-            //io.close();
-        }
-    });
+    socket.on('loaded', function(username) {
+      let player = players[username]
+      let game = rooms[player.gameName]
+      socket.join(game.name)
+      game.markLoaded(username)
+      socket.player = player
+      socket.room = game.name
+    })
   
     socket.on('disconnect', function() {
         //remove player from list
@@ -189,6 +214,40 @@ io.sockets.on('connection', function(socket) {
         //io.close();
     });
  });
+
+function chooseQuestion(category){
+  //need to feed category as input as well
+  let r = getRandom(0, category.Questions.length)
+  return category.Questions[r]
+}
+
+function chooseCategory(json){
+  // console.log(json.Categories.length)
+  // console.log(r)
+  let obj_keys = Object.keys(json.Categories)
+  let r = getRandom(0, obj_keys.length)
+
+  let category = json.Categories[obj_keys[r]]
+  // document.getElementById("cat").innerHTML = json.Categories[r]; 
+  return category
+}
+
+function answerpool(category){
+  let answers = []
+  for (let i = 0; i <=3; i++) {
+      let new_answer = ""
+      do {
+        let r = getRandom(0, category.Answers.length)
+        new_answer = category.Answers[r]
+      } while (answers.includes(new_answer))
+      answers.push(new_answer)
+    }
+  return answers
+}
+
+function getRandom(min, max) {
+    return Math.floor(Math.random() * (max - min)) + min;
+}
 
 
 server.listen(PORT, () => console.log("Server started!", `Listening on ${ PORT }`));
