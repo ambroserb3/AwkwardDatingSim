@@ -24,30 +24,34 @@
 
 </head>
 <body>
-        <div id="roomslist" style="width:100px;border-right:1px solid black;height:300px;padding:10px;overflow:scroll-y;">
-            <b>ROOMS</b>
-            <div id="rooms"></div>
-        </div>
-             
-        <div style="float:left;width:300px;height:250px;overflow:scroll-y;padding:10px;">
-            <div id="conversation"></div>
-            <input id="data" style="width:200px;" />
-            <input type="button" id="datasend" value="send" />
-        </div>
-    
-       <div style="float:left;width:300px;height:250px;overflow:scroll-y;padding:10px;">
-           <div id="room creation">
-           <input id="roomname" style="width:200px;" />
-            <input type="button" id="roombutton" value="create room" />
+        <div class="container">
+            <div class="row">
+                <div id="roomslist" class="col-xs-2">
+                    <b>ROOMS TO JOIN</b>
+                    <div id="rooms"></div>
+                </div>
+                <div id="roomcontainer" class="col-xs-7">
+                    <div id="room creation">
+                    <input id="roomname" style="width:200px;" placeholder="Room name" class="form-control"/>
+                        <input type="button" id="roombutton" value="Create Room" class="btn" />
+                        </div>
+                </div>
+                <div id="chatcontainer" class="col-xs-3">
+                    Chat! (Only works if you join a room)
+                    <div id="conversation">
+                        <input id="data" class="form-control" />
+                        <input type="button" id="datasend" value="send" class="btn btn-outline-secondary"/>
+                    </div>
+                </div>
             </div>
-       </div>
-
-       <div style="float:left;width:300px;height:250px;overflow:scroll-y;padding:10px;">
-        <div id="room panel">
-            <b id="myroom">ROOM</b>
-            <p id="p1" class="player">player 1</p>
-            <!-- <p id="p2" class="player">player 2</p> -->
-            <input type="button" id="begindate" value="start date"/>
+            <div id="room panel" class="roomstart">
+                Players in room <b id="myroom">ROOM</b>:
+                <p id="p1" class="player"></p>
+                <!-- <p id="p2" class="player">player 2</p> -->
+                <div id="startdatecontainer">
+                    <input type="button" id="begindate" value="Start Date" class="btn"/>
+                </div>
+            </div>
         </div>
     </div>
 </body>
