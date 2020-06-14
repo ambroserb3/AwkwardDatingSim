@@ -158,6 +158,11 @@ io.sockets.on('connection', function(socket) {
       }
     });
 
+    socket.on('selectChar', function(index) {
+      console.log('WE GOT THOSE CHARACTERS!')
+      console.log(index)
+    })
+
     socket.on('next-move', function(data){ 
         game.operators.push(parseInt(data));
         if(game.movingPlayerId === game.playerA.id) {
