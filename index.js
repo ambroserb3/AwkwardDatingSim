@@ -14,6 +14,15 @@ app.use(express.static(path.join(__dirname, 'public')))
 app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 app.get('/', (req, res) => res.render('pages/index'))
+app.get('/lobby', function(req, res) {
+  res.render('pages/rooms', { });
+});
+app.get('/char', function(req, res) {
+  res.render('pages/characterselect', { });
+});
+app.get('/date', function(req, res) {
+  res.render('pages/date', { });
+});
 
 var usernames = {};
 var rooms = ['Lobby'];
