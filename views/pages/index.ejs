@@ -14,33 +14,41 @@
 	<title>Awkward Dating Sim</title>
     
 	<!-- Fonts, Fontawesome Bootstrap, Core CSS, -->
-	<link href="../../stylesheets/fonts.css" rel="stylesheet" type="text/css" />
-	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
-	<link href="../../stylesheets/bootstrap.min.css" rel="stylesheet" />
-	<link href="../../stylesheets/style.css" rel="stylesheet" type="text/css" />
-	
+	<link href="../../stylesheets/fonts.css" />
+	<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+	<link href="../../stylesheets/bootstrap.min.css" />
+	<link href="../../stylesheets/style.css" type="text/css" />
 	<script src="/socket.io/socket.io.js"></script>
 
+	<!-- Core JavaScript, tensorflow, jquery, and bootstrap -->
+	<script  type="text/html" src="../../scripts/jquery-latest.min.js"></script>
+	<script  type="text/html" src="../../scripts/script.js"></script>
+	<script type="text/html" src="../../scripts/play.js"></script>
+	<script type="text/html" src="../../scripts/bootstrap.min.js"></script>
 </head>
 <body style="background-color: #1D1F22">
-
 <div class="jumbotron" id="top" style="height: 901px;">
     <img src="Assets/title.png" height="75%"> </img> 
 	<div class="container">
 		<h1>A Date at the Museum</h1>
 		<p>&ldquo;"A raving good time!"&rdquo;<br /></p>
         <br>
-        <button type="button" class="btn btn-dark" onclick="window.location.href='rooms.ejs'">Play</button>
+		<button type="button" class="btn btn-dark" id="play">Play</button>
 	</div>
 	<div class="overlay"></div>
 </div>
 
-onclick="window.location.href='/page2'
+<!-- onclick="window.location.href='/rooms.ejs'" -->
+<script>
+	const socket = io();
+	document.getElementById("play").addEventListener("click", playbutton);
+	function playbutton() {
+		console.log("clicked")
+		// Join game
+		socket.emit('play');
+	}
+</script>
 
-<!-- Core JavaScript, tensorflow, jquery, and bootstrap -->
-<script type=text/javascript src="../../scripts/jquery-latest.min.js"></script>
-<script type="text/javascript" src="../../scripts/script.js"></script>
-<script type="text/javascript" src="../../scripts/bootstrap.min.js"></script>
 
 <!-- <h6 style="text-align: center; color: white;">Copyright&copy;CU GameDev 2020<h6></h6> -->
 </body>

@@ -15,21 +15,13 @@ app.set('views', path.join(__dirname, 'views'))
 app.set('view engine', 'ejs')
 app.get('/', (req, res) => res.render('pages/index'))
 
-// io.on('connection', (socket) => {
-//   console.log('a user connected');
-//   let output = "hey"
-//   socket.emit("Output", output)
-//   socket.on("Input", async() => {
-//       let output = "hey"
-//       socket.emit("Output", output)
-//   })
-
-//   socket.on('disconnect', () => console.log('Client disconnected'));
-// });
-
 var usernames = {};
-
 var rooms = ['Lobby'];
+
+io.sockets.on('play', function(play) {
+  console.log("a user pressed play")
+  app.get('/', (req, res) => res.render('pages/rooms'))
+});
 
 io.sockets.on('connection', function(socket) {
     socket.on('adduser', function(username) {
