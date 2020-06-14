@@ -25,24 +25,32 @@ app.get('/date', function(req, res) {
 });
 
 var usernames = {};
-var rooms = ['game'];
+var rooms = {};
 
-function Player(id, name, numbers, isPlaying){
-  this.id = id;
-  this.name = name;
-  this.numbers = numbers;
-  this.isPlaying = isPlaying;
+class Player {
+  constructor(username) {
+    this.username = username
+  }
 }
 
-function Game(playerA, playerB, numbers, operators, movingPlayerId) {
-  this.playerA = playerA;
-  this.playerB = playerB;
-  this.operators = operators;
-  this.movingPlayerId = movingPlayerId;
-}
+class Game {
+  constructor(name) {
+    this.name = name
+    this.players = {}
+  }
 
-players = [];
-game = new Game();
+  addPlayer(username, player) {
+    this.players[username] = player
+  }
+
+  removePlayer(username) {
+    delete this.players[username]
+  }
+
+  get usernames() {
+    return Object.keys(this.players)
+  }
+}
 
 
 var randomNumber = Math.floor(Math.random() * (21 - 2 + 1)) + 2;
@@ -82,52 +90,39 @@ function togglePlayer() {
    game.movingPlayerId === game.playerA.id ? game.playerA.id : game.playerB.id; 
 }
 
+function leaveRoom(socket) {
+  oldroom = socket.room
+  if (oldroom != null) {
+    socket.leave(oldroom)
+    socket.broadcast.to(oldroom).emit('updatechat', 'SERVER', socket.username + ' has left this room')
+    socket.room = null
+    rooms[oldroom].removePlayer(socket.player.username)
+  }
+}
+
+function joinRoom(socket, roomName) {
+  socket.join(roomName)
+  socket.emit('updatechat', 'SERVER', 'you have connected to ' + roomName)
+  socket.broadcast.to(roomName).emit('updatechat', 'SERVER', socket.username + ' has joined this room')
+  socket.emit('updaterooms', Object.keys(rooms), roomName)
+  socket.room = roomName
+  rooms[roomName].addPlayer(socket.player)
+  socket.broadcast.to(roomName).emit('userlist', rooms[roomName].usernames)
+}
+
 io.sockets.on('connection', function(socket) {
     socket.on('adduser', function(username) {
         socket.username = username;
-        socket.room = 'game';
-        players.push(username);
-        console.log("THis is players /////////////////////////////////////////////" +JSON.stringify(players))
-        if(players.length === 1){   
-            player = new Player(socket.id, 'Player A', [], true);
-            game.playerA = player;
-            game.playerB = new Player('notAvailable', 'Player B', [randomNumber], false);
-            game.movingPlayerId = game.playerA.id;
-            game.operators = [];
-            info = 'Hi Player A, please make a move.'
-            console.log(info)
-            io.sockets.connected[socket.id].emit('info', info);
-            //emit game user only to our first player
-            io.sockets.connected[socket.id].emit('game', game);
-        } else if(players.length === 2) {
-            game.playerB.id = socket.id;
-            if(game.movingPlayerId === game.playerA.id) {
-                info = 'Hi Player B! ...waiting for Player A';
-            } else {
-                info = 'Hi Player B! Please make a move.';
-                game.movingPlayerId = game.playerB.id;
-            }
-            io.sockets.connected[socket.id].emit('info', info);
-            io.sockets.emit('game', game);
-            socket.emit("go to date", players, game)
-        } else {
-            info = "Sorry, there are already two guys playing...!"
-            io.sockets.connected[socket.id].emit('info', info);
-            io.sockets.emit('game', game);
-        };
-        usernames[username] = username;
-        console.log(usernames)
-        socket.emit("userlist", usernames)
-        socket.join('game');
-        socket.emit('updatechat', 'SERVER', 'you have connected to game');
-        socket.broadcast.to('game').emit('updatechat', 'SERVER', username + ' has connected to this room');
-        socket.emit('updaterooms', rooms, 'game');
+        socket.player = new Player(username)
+        socket.room = null
+        socket.emit('updaterooms', Object.keys(rooms), null)
         console.log("A USER HAS been added")
     });
 
     socket.on('create', function(room) {
-        rooms.push(room);
-        socket.emit('updaterooms', rooms, socket.room);
+        game = new Game(room, {})
+        rooms[room] = game;
+        joinRoom(socket, room)
     });
 
     socket.on('sendchat', function(data) {
@@ -135,15 +130,8 @@ io.sockets.on('connection', function(socket) {
     });
 
     socket.on('switchRoom', function(newroom) {
-        var oldroom;
-        oldroom = socket.room;
-        socket.leave(socket.room);
-        socket.join(newroom);
-        socket.emit('updatechat', 'SERVER', 'you have connected to ' + newroom);
-        socket.broadcast.to(oldroom).emit('updatechat', 'SERVER', socket.username + ' has left this room');
-        socket.room = newroom;
-        socket.broadcast.to(newroom).emit('updatechat', 'SERVER', socket.username + ' has joined this room');
-        socket.emit('updaterooms', rooms, newroom);
+        leaveRoom(socket)
+        joinRoom(socket, newroom)
     });
 
     socket.on('next-move', function(data){ 
@@ -167,15 +155,8 @@ io.sockets.on('connection', function(socket) {
   
     socket.on('disconnect', function() {
         //remove player from list
-        var index = players.indexOf(socket);
-        if (index != -1) {
-            players.splice(index, 1);
-        }
+        leaveRoom(socket)
         //TODO error handling for game
-        delete usernames[socket.username];
-        io.sockets.emit('updateusers', usernames);
-        socket.broadcast.emit('updatechat', 'SERVER', socket.username + ' has disconnected');
-        socket.leave(socket.room);
         //io.close();
     });
  });

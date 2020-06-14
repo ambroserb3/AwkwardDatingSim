@@ -13,7 +13,10 @@ socket.on('updatechat', function (username, data) {
 socket.on('updaterooms', function (rooms, current_room) {
     $('#rooms').empty();
     let curRoom = document.getElementById('myroom')
-    curRoom.innerHTML = current_room;
+    if (current_room != null)
+    {
+        curRoom.innerHTML = current_room;
+    }
 
     console.log(socket);
     $.each(rooms, function(key, value) {
