@@ -71,8 +71,9 @@ class Game {
 
   selectChar(username, index) {
     this.players[username].character = index
-    console.log(username + " selected ")
-    console.log(index)
+  }
+
+  markLoaded(username) {
     if (this.oneSelected) {
       io.sockets.in(this.name).emit('questionsStart', this)
     }
@@ -184,6 +185,13 @@ io.sockets.on('connection', function(socket) {
       let game = rooms[player.gameName]
       game.selectChar(player.username, data.choice)
       socket.join(game.name)
+    })
+
+    socket.on('loaded', function(username) {
+      let player = players[username]
+      let game = rooms[player.gameName]
+      socket.join(game.name)
+      game.markLoaded(username)
     })
   
     socket.on('disconnect', function() {

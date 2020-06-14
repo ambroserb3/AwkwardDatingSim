@@ -3,9 +3,27 @@ console.log('running date')
 
 var socket = io()
 
-socket.on('questionsStart') {
-    console.log('go go go')
+function getUsername() {
+  var name = "username=";
+  var decodedCookie = decodeURIComponent(document.cookie);
+  var ca = decodedCookie.split(';');
+  for(var i = 0; i <ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
 }
+
+socket.emit('loaded', getUsername())
+
+socket.on('questionsStart', function () {
+    console.log('go go go')
+})
 
 
 $(document).ready(function()
