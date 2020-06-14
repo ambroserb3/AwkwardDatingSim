@@ -28,7 +28,8 @@ var usernames = {};
 var rooms = {};
 
 class Player {
-  constructor(username) {
+  constructor(id, username) {
+    this.id = id
     this.username = username
   }
 }
@@ -39,8 +40,9 @@ class Game {
     this.players = {}
   }
 
-  addPlayer(username, player) {
-    this.players[username] = player
+  addPlayer(player) {
+    this.players[player.username] = player
+    console.log(this.players)
   }
 
   removePlayer(username) {
@@ -49,6 +51,16 @@ class Game {
 
   get usernames() {
     return Object.keys(this.players)
+  }
+
+  start() {
+    for (const player in this.players) {
+      this.emitToPlayers('dateStart', this)
+    }
+  }
+
+  emitToPlayers(signal, info) {
+    io.sockets.in(this.name).emit(signal, info)
   }
 }
 
@@ -113,7 +125,7 @@ function joinRoom(socket, roomName) {
 io.sockets.on('connection', function(socket) {
     socket.on('adduser', function(username) {
         socket.username = username;
-        socket.player = new Player(username)
+        socket.player = new Player(socket.id, username)
         socket.room = null
         socket.emit('updaterooms', Object.keys(rooms), null)
         console.log("A USER HAS been added")
@@ -133,6 +145,16 @@ io.sockets.on('connection', function(socket) {
     socket.on('switchRoom', function(newroom) {
         leaveRoom(socket)
         joinRoom(socket, newroom)
+    });
+
+    socket.on('startDate', function() {
+      if (socket.room != null) {
+        let game = rooms[socket.room]
+        if (game.usernames.length == 2)
+        {
+          game.start()
+        }
+      }
     });
 
     socket.on('next-move', function(data){ 

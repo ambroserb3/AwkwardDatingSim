@@ -38,6 +38,9 @@ socket.on("userlist", function(usernames) {
     // document.getElementById('p2').innerHTML = usernames[1]
 });
 
+socket.on("dateStart", function(game) {
+    window.location.href="/char"
+})
 
 function switchRoom(room){
     socket.emit('switchRoom', room);
@@ -66,8 +69,7 @@ $(function(){
     });
 
     $('#begindate').click(function(){
-        console.log("starting date")
-        // Join game
-        window.location.href="/char"
+        console.log('this happened')
+        socket.emit('startDate')
     });
 });
