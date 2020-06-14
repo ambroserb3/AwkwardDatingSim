@@ -123,6 +123,7 @@ io.sockets.on('connection', function(socket) {
         game = new Game(room, {})
         rooms[room] = game;
         joinRoom(socket, room)
+        socket.broadcast.emit('updaterooms', Object.keys(rooms), null)
     });
 
     socket.on('sendchat', function(data) {

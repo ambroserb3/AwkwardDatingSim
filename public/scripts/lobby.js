@@ -2,6 +2,8 @@ console.log('running lobby')
 
 var socket = io();
 
+var my_room = null
+
 socket.on('connect', function(){
     socket.emit('adduser', prompt("What's your name: "));
 });
@@ -16,11 +18,11 @@ socket.on('updaterooms', function (rooms, current_room) {
     if (current_room != null)
     {
         curRoom.innerHTML = current_room;
+        my_room = current_room
     }
 
-    console.log(socket);
     $.each(rooms, function(key, value) {
-        if(value == current_room){
+        if(value == my_room){
             $('#rooms').append('<div>' + value + '</div>');
         }
         else {
