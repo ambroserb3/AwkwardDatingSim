@@ -10,7 +10,8 @@
                 "If you could meet anyone, past present or future, who would it be?",
                 "Who inspires you?",
                 "Who do you aspire to be?",
-                "Who’s your daddy?"
+                "Who’s your daddy?",
+                "Marry, Fuck, Kill: which one of these would you kill?"
             ],
             "Answers": [
                 "My mother",
@@ -52,7 +53,20 @@
                 "The Devil",
                 "Ben 10",
                 "Pikachu",
-                "Ash Ketchum"
+                "Ash Ketchum",
+                "Obama",
+                "Aristotle",
+                "Harry Potter",
+                "Iron Man",
+                "Winnie-the-Pooh",
+                "Han Solo",
+                "Kermit the frog",
+                "Bugs Bunny",
+                "My best friend",
+                "Your best friend",
+                "My professor",
+                "That one really hot TA",
+                "Donald Trump"
             ]
         },
         "Situational": {
@@ -61,7 +75,9 @@
                 "How do you want to get married?",
                 "How are you planning to get home after this date?",
                 "How do you usually start the day?",
-                "How do you wind down at the end of the day?"
+                "How do you wind down at the end of the day?",
+                "What’s your favorite hobby?",
+                "What do you want to do for our second date?"
             ],
             "Answers": [
                 "I’m not sure, but it involves me getting punched.",
@@ -73,7 +89,10 @@
                 "Snorting pixie sticks",
                 "Drugs",
                 "Lots and lots of sex",
-                "My answer is totally dependent on the amount of people involved"
+                "My answer is totally dependent on the amount of people involved",
+                "Playing video games",
+                "Murder",
+                "Naruto Running"
             ]
         },
         "Locations": {
@@ -122,7 +141,9 @@
                 "Horneytown",
                 "Hell",
                 "Heaven",
-                "Where the moon hits your eye like a big pizza pie"
+                "Where the moon hits your eye like a big pizza pie",
+                "Where would you want to die?",
+                "Where do you go to calm down?"
             ]
         }
     }
