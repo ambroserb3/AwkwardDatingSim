@@ -43,6 +43,7 @@ class Game {
     this.players = {}
     this.oneSelected = false
     this.started = false
+    this.round = -1
   }
 
   addPlayer(player) {
@@ -76,10 +77,15 @@ class Game {
   markLoaded(username) {
     if (this.oneSelected) {
       io.sockets.in(this.name).emit('questionsStart', this)
+      this.round = 0
     }
     else {
       this.oneSelected = true
     }
+  }
+
+  sendRound() {
+
   }
 }
 
@@ -192,6 +198,8 @@ io.sockets.on('connection', function(socket) {
       let game = rooms[player.gameName]
       socket.join(game.name)
       game.markLoaded(username)
+      socket.player = player
+      socket.room = game.name
     })
   
     socket.on('disconnect', function() {

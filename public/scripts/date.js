@@ -1,7 +1,55 @@
 // Core dating logic goes here!
-console.log('running date')
+console.log("running date")
 
 var socket = io()
+var mode = 'waiting'
+setMode('waiting', null, null)
+
+function setMode(newMode, question, choices)
+{
+    mode = newMode
+    let instruction = document.getElementById("instruction")
+    let questionHTML = document.getElementById("question")
+    if (mode == "waiting")
+    {
+        instruction.innerHTML = "<p>WAITING</p>"
+    }
+    else if (mode == "question")
+    {
+        instruction.innerHTML = "<p>ASK A QUESTION</p>"
+    }
+    else if (mode == "answer")
+    {
+        instruction.innerHTML = "<p>ANSWER THE QUESTION</p>"
+    }
+    else if (mode == "guess")
+    {
+        instruction.innerHTML = "<p>GUESS THE ANSWER</p>"
+    }
+    if (mode != "question")
+    {
+        questionHTML.innerHTML = '<p>"' + question + '"</p>'
+    }
+    else
+    {
+        questionHTML.innerHTML = ''
+    }
+    if (mode != "waiting")
+    {
+        document.getElementById("answer1").disabled = false
+        document.getElementById("answer2").disabled = false
+        document.getElementById("answer3").disabled = false
+        document.getElementById("answer1").innerHTML = choices[0]; 
+        document.getElementById("answer2").innerHTML = choices[1]; 
+        document.getElementById("answer3").innerHTML = choices[2]; 
+    }
+    else
+    {
+        document.getElementById("answer1").disabled = true
+        document.getElementById("answer2").disabled = true
+        document.getElementById("answer3").disabled = true
+    }
+}
 
 function getUsername() {
   var name = "username=";
@@ -19,10 +67,20 @@ function getUsername() {
   return "";
 }
 
-socket.emit('loaded', getUsername())
+var username = getUsername()
+var isPlayerOne = false
 
-socket.on('questionsStart', function () {
-    console.log('go go go')
+socket.emit('loaded', username)
+var players = {}
+
+socket.on('questionsStart', function (game) {
+    players = game.players
+    let playerOne = Object.keys(game.players).sort()[0]
+    isPlayerOne = username == playerOne
+})
+
+socket.on('setRound', function (data) {
+
 })
 
 
@@ -40,9 +98,7 @@ $.getJSON("Assets/dating.json", function(json) {
 function chooseQuestion(category){
 	//need to feed category as input as well
 	let r = getRandom(0, category.Questions.length)
-	console.log("random number for question:" + r)
-	console.log(category.Questions[r])
-	document.getElementById("question").innerHTML = '"' + category.Questions[r] + '"'; 
+    return category.Questions[r]
 }
 
 function chooseCategory(json){
@@ -66,10 +122,7 @@ function answerpool(category){
 			} while (answers.includes(new_answer))
 			answers.push(new_answer)
 		}
-	console.log(answers)
-	document.getElementById("answer1").innerHTML = answers[0]; 
-	document.getElementById("answer2").innerHTML = answers[1]; 
-	document.getElementById("answer3").innerHTML = answers[2]; 
+	return answers
 }
 
 function getRandom(min, max) {
