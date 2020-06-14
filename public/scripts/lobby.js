@@ -18,18 +18,18 @@ socket.on('updaterooms', function (rooms, current_room) {
     curRoom.innerHTML = current_room;
 
     console.log(socket);
-    var room = io.sockets.adapter.rooms['my_room'];
+    // var room = io.sockets.adapter.rooms['my_room'];
 
-    console.log(room)
-    room.length;
+    // console.log(room)
+    // room.length;
 
     //counts all clients connected
-    var srvSockets = io.sockets.sockets;
-    Object.keys(srvSockets).length;
+    // var srvSockets = io.sockets.sockets;
+    // Object.keys(srvSockets).length;
 
     // Count all clients connected to namespace '/lobby':
-    var nspSockets = io.of('/lobby').sockets;
-    Object.keys(nspSockets).length
+    // var nspSockets = io.of('/lobby').sockets;
+    // Object.keys(nspSockets).length
 
 
     let p1 = document.getElementById('p1')
@@ -73,6 +73,6 @@ $(function(){
     $('#begindate').click(function(){
         console.log("starting date")
         // Join game
-        window.location.href="/date"
+        window.location.href="/char"
     });
 });
