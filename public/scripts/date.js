@@ -1,4 +1,12 @@
 // Core dating logic goes here!
+console.log('running date')
+
+var socket = io()
+
+socket.on('questionsStart') {
+    console.log('go go go')
+}
+
 
 $(document).ready(function()
 {	

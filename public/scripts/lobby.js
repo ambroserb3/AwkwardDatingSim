@@ -5,7 +5,9 @@ var socket = io();
 var my_room = null
 
 socket.on('connect', function(){
-    socket.emit('adduser', prompt("What's your name: "));
+    let username = prompt("What's your name: ")
+    socket.emit('adduser', username);
+    document.cookie = "username=" + username
 });
 
 socket.on('updatechat', function (username, data) {

@@ -26,11 +26,14 @@ app.get('/date', function(req, res) {
 
 var usernames = {};
 var rooms = {};
+var players = {};
 
 class Player {
   constructor(id, username) {
     this.id = id
     this.username = username
+    this.character = 0
+    this.gameName = null
   }
 }
 
@@ -38,11 +41,13 @@ class Game {
   constructor(name) {
     this.name = name
     this.players = {}
+    this.oneSelected = false
+    this.started = false
   }
 
   addPlayer(player) {
     this.players[player.username] = player
-    console.log(this.players)
+    player.gameName = this.name
   }
 
   removePlayer(username) {
@@ -54,6 +59,7 @@ class Game {
   }
 
   start() {
+    this.started = true
     for (const player in this.players) {
       this.emitToPlayers('dateStart', this)
     }
@@ -61,6 +67,18 @@ class Game {
 
   emitToPlayers(signal, info) {
     io.sockets.in(this.name).emit(signal, info)
+  }
+
+  selectChar(username, index) {
+    this.players[username].character = index
+    console.log(username + " selected ")
+    console.log(index)
+    if (this.oneSelected) {
+      io.sockets.in(this.name).emit('questionsStart', this)
+    }
+    else {
+      this.oneSelected = true
+    }
   }
 }
 
@@ -108,7 +126,10 @@ function leaveRoom(socket) {
     socket.leave(oldroom)
     socket.broadcast.to(oldroom).emit('updatechat', 'SERVER', socket.username + ' has left this room')
     socket.room = null
-    rooms[oldroom].removePlayer(socket.player.username)
+    if (!rooms[oldroom].started)
+    {
+      rooms[oldroom].removePlayer(socket.player.username) 
+    }
     io.sockets.in(oldroom).emit('userlist', rooms[oldroom].usernames)
   }
 }
@@ -116,7 +137,7 @@ function leaveRoom(socket) {
 function joinRoom(socket, roomName) {
   socket.join(roomName)
   socket.emit('updatechat', 'SERVER', 'you have connected to ' + roomName)
-  socket.broadcast.to(roomName).emit('updatechat', 'SERVER', socket.username + ' has joined this room')
+  socket.broadcast.to(roomName).emit('updatechat', 'SERVER', socket.player.username + ' has joined this room')
   socket.emit('updaterooms', Object.keys(rooms), roomName)
   socket.room = roomName
   rooms[roomName].addPlayer(socket.player)
@@ -125,8 +146,8 @@ function joinRoom(socket, roomName) {
 
 io.sockets.on('connection', function(socket) {
     socket.on('adduser', function(username) {
-        socket.username = username;
         socket.player = new Player(socket.id, username)
+        players[username] = socket.player
         socket.room = null
         socket.emit('updaterooms', Object.keys(rooms), null)
         console.log("A USER HAS been added")
@@ -140,7 +161,7 @@ io.sockets.on('connection', function(socket) {
     });
 
     socket.on('sendchat', function(data) {
-        io.sockets["in"](socket.room).emit('updatechat', socket.username, data);
+        io.sockets["in"](socket.room).emit('updatechat', socket.player.username, data);
     });
 
     socket.on('switchRoom', function(newroom) {
@@ -158,29 +179,12 @@ io.sockets.on('connection', function(socket) {
       }
     });
 
-    socket.on('selectChar', function(index) {
-      console.log('WE GOT THOSE CHARACTERS!')
-      console.log(index)
+    socket.on('selectChar', function(data) {
+      let player = players[data.username]
+      let game = rooms[player.gameName]
+      game.selectChar(player.username, data.choice)
+      socket.join(game.name)
     })
-
-    socket.on('next-move', function(data){ 
-        game.operators.push(parseInt(data));
-        if(game.movingPlayerId === game.playerA.id) {
-            executeNextMove(game.playerA, game.playerB);
-        } else {
-            executeNextMove(game.playerB, game.playerA);
-        }
-        if (newNumber === 1) {
-            //because movingPlayerId was just switched
-            if (game.playerB.id.match(game.movingPlayerId)){
-                info = "The winner is Player A";
-            } else {
-                info = "The winner is Player B";
-            }
-            io.sockets.emit('info', info);
-            //io.close();
-        }
-    });
   
     socket.on('disconnect', function() {
         //remove player from list
