@@ -47,4 +47,5 @@
 .bg{
     background-image: url('../Assets/Ticket.png');
     height: 100%;
+    background-size: cover;
 }
