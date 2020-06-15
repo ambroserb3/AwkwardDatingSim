@@ -7,7 +7,7 @@
     text-align: center;
 }
 
-.imageandtext img{
+.imageandtext #bg-img{
     width: 100%;
     height: auto;
 }
@@ -71,6 +71,8 @@
     color: black;
     font-family: 'Quantico', sans-serif;
 }
+
+
 
 .btn{
     margin: 20px;
