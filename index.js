@@ -97,6 +97,12 @@ class Game {
   sendQuestionRound() {
     this.inQRound = true
     this.round++
+    if (this.round == 10)
+    {
+      io.sockets.in(this.name).emit('gameEnd', this.score)
+      cleanUp()
+      return
+    }
     for (let i = 0; i < 3; i++)
     {
       this.currCats[i] = chooseCategory()
@@ -115,6 +121,11 @@ class Game {
 
   sendGuessInfo() {
     io.sockets.in(this.name).emit('guessInfo', this.guesses)
+  }
+
+  cleanUp()
+  {
+    // add clean up code here (i.e. deleting players)
   }
 
   selectOption(choice, username) {
