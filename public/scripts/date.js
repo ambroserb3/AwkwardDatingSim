@@ -13,20 +13,20 @@ function setMode(newMode, question, choices)
     let questionHTML = document.getElementById("question")
     if (mode == "waiting")
     {
-        instruction.innerHTML = "<p>WAITING</p>"
+        instruction.innerHTML = "<p>WAITING FOR <b>" + getUsername() + "</b></p>"
     }
     else if (mode == "question")
     {
-        instruction.innerHTML = "<p>ASK A QUESTION</p>"
+        instruction.innerHTML = "<p>ASK A QUESTION TO <b>" + getUsername() + "</b></p>"
     }
     else if (mode == "answer")
     {
-        instruction.innerHTML = "<p>ANSWER THE QUESTION</p>"
+        instruction.innerHTML = "<p>ANSWER THE QUESTION FROM <b>" + getUsername() + "</b></p>"
     }
     else if (mode == "guess")
     {
-        instruction.innerHTML = "<p>GUESS THE ANSWER</p>"
-    }
+        instruction.innerHTML = "<p>GUESS THE ANSWER  <b>" + getUsername() + "</b> PUT FOR THE QUESTION:</p>"
+    } 
     if (mode != "question" && mode != "waiting")
     {
         questionHTML.innerHTML = '<p>"' + question + '"</p>'
@@ -37,18 +37,18 @@ function setMode(newMode, question, choices)
     }
     if (mode != "waiting")
     {
-        document.getElementById("answer1").disabled = false
-        document.getElementById("answer2").disabled = false
-        document.getElementById("answer3").disabled = false
+        $("#answer1").show();
+        $("#answer2").show();
+        $("#answer3").show();
         document.getElementById("answer1").innerHTML = choices[0]; 
         document.getElementById("answer2").innerHTML = choices[1]; 
         document.getElementById("answer3").innerHTML = choices[2]; 
     }
     else
     {
-        document.getElementById("answer1").disabled = true
-        document.getElementById("answer2").disabled = true
-        document.getElementById("answer3").disabled = true
+        $("#answer1").hide();
+        $("#answer2").hide();
+        $("#answer3").hide();
     }
 }
 

@@ -34,7 +34,7 @@
     border-radius: 1px;
     padding: 2px 10px 2px 10px;
     color: #5e5e5e;
-    font-size: 14px;
+    font-size: 30px;
     text-shadow: -1px 1px 0 #ffffff, 
                           1px 1px 0 #ffffff, 
                          1px -1px 0 #ffffff; 
@@ -56,6 +56,10 @@
                           2px 2px 0 #0dfc59, 
                          2px -2px 0 #0dfc59; 
                         -2px -2px 0 #0dfc59; 
+}
+
+.waiting{
+    color: purple;
 }
 
 .imageandtext #answers{
