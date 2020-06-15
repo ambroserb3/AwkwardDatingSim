@@ -13,19 +13,19 @@ function setMode(newMode, question, choices)
     let questionHTML = document.getElementById("question")
     if (mode == "waiting")
     {
-        instruction.innerHTML = "<p>WAITING FOR <b>" + getUsername() + "</b></p>"
+        instruction.innerHTML = "<p>WAITING FOR <b>" + otherusername + "</b></p>"
     }
     else if (mode == "question")
     {
-        instruction.innerHTML = "<p>ASK A QUESTION TO <b>" + getUsername() + "</b></p>"
+        instruction.innerHTML = "<p>ASK A QUESTION TO <b>" + otherusername + "</b></p>"
     }
     else if (mode == "answer")
     {
-        instruction.innerHTML = "<p>ANSWER THE QUESTION FROM <b>" + getUsername() + "</b></p>"
+        instruction.innerHTML = "<p>ANSWER THE QUESTION FROM <b>" + otherusername + "</b></p>"
     }
     else if (mode == "guess")
     {
-        instruction.innerHTML = "<p>GUESS THE ANSWER  <b>" + getUsername() + "</b> PUT FOR THE QUESTION:</p>"
+        instruction.innerHTML = "<p>GUESS THE ANSWER  <b>" + otherusername + "</b> PUT FOR THE QUESTION:</p>"
     } 
     if (mode != "question" && mode != "waiting")
     {
@@ -69,6 +69,7 @@ function getUsername() {
 }
 
 var username = getUsername()
+var otherusername = "";
 var isPlayerOne = false
 
 var charP1, charP2
@@ -81,6 +82,11 @@ socket.on('questionsStart', function (game) {
     let sortedPlayers = Object.keys(game.players).sort()
     let playerOne = sortedPlayers[0]
     isPlayerOne = (username == playerOne)
+    if (username != playerOne){
+        otherusername = sortedPlayers[0]
+    } else {
+        otherusername = sortedPlayers[1]
+    }
     charP1 = game.players[sortedPlayers[0]].character
     charP2 = game.players[sortedPlayers[1]].character
     console.log(charP1)
