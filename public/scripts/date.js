@@ -85,6 +85,8 @@ socket.on('questionsStart', function (game) {
     charP2 = game.players[sortedPlayers[1]].character
     console.log(charP1)
     console.log(charP2)
+    $("#char1img").attr("src", charP1)
+    $("#char2img").attr("src", charP2)
 })
 
 socket.on('questionRound', function (data) {
