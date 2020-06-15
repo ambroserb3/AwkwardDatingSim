@@ -100,7 +100,7 @@ class Game {
     if (this.round == 10)
     {
       io.sockets.in(this.name).emit('gameEnd', this.score)
-      cleanUp()
+      this.cleanUp()
       return
     }
     for (let i = 0; i < 3; i++)

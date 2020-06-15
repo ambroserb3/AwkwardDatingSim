@@ -121,6 +121,17 @@ socket.on('guessInfo', function (guesses) {
     console.log(theirGuess)
 })
 
+socket.on('gameEnd', function (score) {
+    if (score > 8)
+    {
+        window.location.href = '/Assets/victory.png'
+    }
+    else
+    {
+        window.location.href = '/Assets/defeat.png'
+    }
+})
+
 function toggleAudio() {
     var sound = document.getElementById("sound");
     return sound.paused ? sound.play() : sound.pause();
