@@ -5,6 +5,7 @@ var socket = io()
 var mode = 'waiting'
 setMode('waiting', null, null)
 
+
 function setMode(newMode, question, choices)
 {
     mode = newMode
