@@ -71,13 +71,20 @@ function getUsername() {
 var username = getUsername()
 var isPlayerOne = false
 
+var charP1, charP2
+
 socket.emit('loaded', username)
 var players = {}
 
 socket.on('questionsStart', function (game) {
     players = game.players
-    let playerOne = Object.keys(game.players).sort()[0]
+    let sortedPlayers = Object.keys(game.players).sort()
+    let playerOne = sortedPlayers[0]
     isPlayerOne = (username == playerOne)
+    charP1 = game.players[sortedPlayers[0]].character
+    charP2 = game.players[sortedPlayers[1]].character
+    console.log(charP1)
+    console.log(charP2)
 })
 
 socket.on('questionRound', function (data) {
