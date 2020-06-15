@@ -1,6 +1,3 @@
-#title{
-    font-size: 18px;
-}
 
 .imageandtext{
     position: relative;
@@ -13,13 +10,18 @@
 }
 
 .imageandtext #title{
+    margin-top: 10px;
+    font-size: 30px;
+    background-color: white;
+    border-color: black;
+    border-width: ;
     position: absolute;
     top: 4%;
     left: 10%;
     transform: translate(-50%, -50%);
     padding: 5px 15px 5px 15px;
-    border-radius: 1px;
-
+    border-radius: 5px;
+    border-style: solid;
     text-shadow: -1px 1px 0 #ffffff, 
                           1px 1px 0 #ffffff, 
                          1px -1px 0 #ffffff; 
@@ -75,12 +77,16 @@
 
 #prevRound{
     position: absolute;
-    top: 85%;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, -50%);
-    padding: 5px 15px 5px 15px;
     color: black;
-    font-family: 'Quantico', sans-serif;
+    padding: 5px 15px 5px 15px;
+    border-radius: 3px;
+    font-weight: bold;
+    background-color: white;
+    border-style: solid;
+    border-color: black;
 }
 
 .btn{
@@ -89,6 +95,23 @@
 
 body{
     font-family: 'Gochi Hand', cursive;
+}
+
+#charimgs{
+    position: absolute; 
+    top: 70%; 
+    left: 0%;
+    width: 100%;
+}
+
+.charimg{
+    display: inline;
+    width: 10%;
+    
+}
+
+#char2img{
+    margin-left: 650px;
 }
 
 #answer1{

@@ -96,7 +96,7 @@ socket.on('questionsStart', function (game) {
 })
 
 socket.on('questionRound', function (data) {
-    document.getElementById('title').innerHTML = data.score
+    document.getElementById('title').innerHTML = "Score: " + data.score
     let isMyTurn = (data.currRound % 2 == 1 && !isPlayerOne) || (data.currRound % 2 == 0 && isPlayerOne)
     if (isMyTurn)
     {
@@ -132,8 +132,8 @@ socket.on('guessInfo', function (guesses) {
     {
         theirGuess = guesses[names[0]]
     }
-    document.getElementById('myGuess').innerHTML = myGuess
-    document.getElementById('theirGuess').innerHTML = theirGuess
+    document.getElementById('myGuess').innerHTML = username + ": "+ myGuess
+    document.getElementById('theirGuess').innerHTML = otherusername + ": " + theirGuess
     console.log(myGuess)
     console.log(theirGuess)
 })
