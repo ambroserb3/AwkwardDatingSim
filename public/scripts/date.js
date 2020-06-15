@@ -126,6 +126,8 @@ socket.on('guessInfo', function (guesses) {
     {
         theirGuess = guesses[names[0]]
     }
+    document.getElementById('myGuess').innerHTML = myGuess
+    document.getElementById('theirGuess').innerHTML = theirGuess
     console.log(myGuess)
     console.log(theirGuess)
 })

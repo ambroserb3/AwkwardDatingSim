@@ -125,6 +125,11 @@ class Game {
 
   cleanUp()
   {
+    for(const player in Object.keys(this.players))
+    {
+      delete players[player]
+    }
+    delete rooms[this.name]
     // add clean up code here (i.e. deleting players)
   }
 
@@ -194,7 +199,7 @@ function togglePlayer() {
 
 function leaveRoom(socket) {
   oldroom = socket.room
-  if (oldroom != null) {
+  if (oldroom != null && rooms[oldroom]) {
     socket.leave(oldroom)
     socket.broadcast.to(oldroom).emit('updatechat', 'SERVER', socket.username + ' has left this room')
     socket.room = null

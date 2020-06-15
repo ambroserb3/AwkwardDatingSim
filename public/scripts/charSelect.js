@@ -19,8 +19,8 @@ function getUsername() {
 $(function(){
     $('.selectChar').click( function(event) {
     	let choice = $(this).data('char')
+      socket.emit('selectChar', {choice: choice, username: getUsername()})
 
     	window.location.href = '/date'
-    	socket.emit('selectChar', {choice: choice, username: getUsername()})
     })
 })

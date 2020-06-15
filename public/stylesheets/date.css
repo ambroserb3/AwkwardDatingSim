@@ -73,6 +73,15 @@
 }
 
 
+#prevRound{
+    position: absolute;
+    top: 85%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 5px 15px 5px 15px;
+    color: black;
+    font-family: 'Quantico', sans-serif;
+}
 
 .btn{
     margin: 20px;
