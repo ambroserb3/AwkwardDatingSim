@@ -52,6 +52,8 @@ class Game {
     this.inQRound = false
     this.choiceIn = 0
     this.score = 0
+    this.guesses = {}
+    this.currAnswers = {}
   }
 
   addPlayer(player) {
@@ -106,18 +108,23 @@ class Game {
 
   sendAnswerRound(choice) {
     this.inQRound = false
-    let answers = answerpool(this.currCats[choice-1])
-    let data = {'currRound': this.round, 'question': this.currQs[choice-1], 'answers': answers}
+    this.currAnswers = answerpool(this.currCats[choice-1])
+    let data = {'currRound': this.round, 'question': this.currQs[choice-1], 'answers': this.currAnswers}
     io.sockets.in(this.name).emit('answerRound', data)
   }
 
-  selectOption(choice) {
+  sendGuessInfo() {
+    io.sockets.in(this.name).emit('guessInfo', this.guesses)
+  }
+
+  selectOption(choice, username) {
     if (this.inQRound)
     {
       this.sendAnswerRound(choice)
     }
     else
     {
+      this.guesses[username] = this.currAnswers[choice-1]
       if (this.choiceIn == 0)
       {
         this.choiceIn = choice
@@ -129,6 +136,7 @@ class Game {
           this.score++
         }
         this.choiceIn = 0
+        this.sendGuessInfo()
         this.sendQuestionRound()
       }
     }
@@ -250,7 +258,7 @@ io.sockets.on('connection', function(socket) {
 
     socket.on('selectOpt', function(choice) {
       let game = rooms[socket.room]
-      game.selectOption(choice)
+      game.selectOption(choice, socket.player.username)
     })
   
     socket.on('disconnect', function() {

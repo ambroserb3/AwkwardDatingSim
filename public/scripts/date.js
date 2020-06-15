@@ -105,6 +105,22 @@ socket.on('answerRound', function (data) {
     }
 })
 
+socket.on('guessInfo', function (guesses) {
+    let names = Object.keys(guesses)
+    let myGuess = guesses[username]
+    let theirGuess = ''
+    if (names[0] == username)
+    {
+        theirGuess = guesses[names[1]]
+    }
+    else
+    {
+        theirGuess = guesses[names[0]]
+    }
+    console.log(myGuess)
+    console.log(theirGuess)
+})
+
 function toggleAudio() {
     var sound = document.getElementById("sound");
     return sound.paused ? sound.play() : sound.pause();
