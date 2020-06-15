@@ -122,7 +122,7 @@ socket.on('guessInfo', function (guesses) {
 })
 
 socket.on('gameEnd', function (score) {
-    if (score > 8)
+    if (score > 6)
     {
         window.location.href = '/Assets/victory.png'
     }
